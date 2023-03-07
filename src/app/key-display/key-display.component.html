@@ -1,0 +1,38 @@
+<div id="container">
+  <div id="modifier-keys" class="key-font">
+    <div id="other-keys">
+      <kbd
+        [ngClass]="{
+          'key-down': isControlPressed,
+          'key-up': !isControlPressed
+        }"
+        >Ctrl</kbd
+      >
+      <kbd [ngClass]="{ 'key-down': isMetaPressed, 'key-up': !isMetaPressed }"
+        >Meta</kbd
+      >
+      <kbd [ngClass]="{ 'key-down': isAltPressed, 'key-up': !isAltPressed }"
+        >Alt</kbd
+      >
+    </div>
+    <div id="shift-key">
+      <kbd
+        [ngClass]="{
+          'key-down': isShiftPressed,
+          'key-up': !isShiftPressed
+        }"
+        >Shift</kbd
+      >
+    </div>
+  </div>
+  <div id="key-info">
+    <div class="code-info">
+      <p>Keycode</p>
+      <p class="key-font">{{ keyCode }}</p>
+    </div>
+    <div class="code-info">
+      <p>Charcode</p>
+      <p class="key-font">{{ charCode }}</p>
+    </div>
+  </div>
+</div>
