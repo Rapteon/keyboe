@@ -34,19 +34,18 @@ export class CodeGeneratorComponent {
       console.log(`Alt ${isAltPressed}`);
       console.log(`Ctrl ${isCtrlPressed}`);
       console.log(`Meta ${isMetaPressed}`);
-      const angularCode = this.codeGeneratorService.generateAngularCode(
-        keyboardEvent.key,
-        keyboardEvent.code,
-        isAltPressed,
-        isCtrlPressed,
-        isMetaPressed
-      );
+      const angularCode =
+        this.codeGeneratorService.generateAngularCode(keyboardEvent);
       this._setCode(angularCode);
     });
   }
 
   private _setCode(angularCode: AngularCode) {
-    this.htmlCode = hljs.highlight(angularCode.htmlCode, {language: 'html'}).value;
-    this.typescriptCode = hljs.highlight(angularCode.typescriptCode, {language: 'typescript'}).value
+    this.htmlCode = hljs.highlight(angularCode.htmlCode, {
+      language: 'html',
+    }).value;
+    this.typescriptCode = hljs.highlight(angularCode.typescriptCode, {
+      language: 'typescript',
+    }).value;
   }
 }

@@ -8,18 +8,13 @@ import { AngularCodeGenerator } from './types/AngularCodeGenerator';
 export class CodeGeneratorService {
   constructor() {}
 
-  generateAngularCode(
-    keyCodes: string,
-    charCodes: string,
-    isAltPressed: boolean,
-    isCtrlPressed: boolean,
-    isMetaPressed: boolean
+  generateAngularCode(keyboardEvent: KeyboardEvent
   ): AngularCode {
-    const codeGenerator = new AngularCodeGenerator(keyCodes, charCodes);
+    const codeGenerator = new AngularCodeGenerator(keyboardEvent);
 
     return {
       htmlCode: codeGenerator.htmlCode(),
-      typescriptCode: codeGenerator.typescriptCode(isAltPressed, isCtrlPressed, isMetaPressed),
+      typescriptCode: codeGenerator.typescriptCode(),
     };
   }
 }

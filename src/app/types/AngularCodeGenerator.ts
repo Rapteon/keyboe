@@ -1,10 +1,18 @@
 export class AngularCodeGenerator {
   private keyCode: string;
   private charCode: string;
+  private isAltPressed: boolean;
+  private isCtrlPressed: boolean;
+  private isShiftPressed: boolean;
+  private isMetaPressed: boolean;
 
-  constructor(keyCode: string, charCode: string) {
-    this.keyCode = keyCode;
-    this.charCode = charCode;
+  constructor(keyboardEvent: KeyboardEvent) {
+    this.keyCode = keyboardEvent.key;
+    this.charCode = keyboardEvent.code;
+    this.isAltPressed = keyboardEvent.altKey;
+    this.isCtrlPressed = keyboardEvent.ctrlKey;
+    this.isShiftPressed = keyboardEvent.shiftKey;
+    this.isMetaPressed = keyboardEvent.metaKey;
   }
 
   htmlCode(): string {
@@ -14,21 +22,9 @@ export class AngularCodeGenerator {
     return HTML_MARKUP;
   }
 
-  public typescriptCode(
-    isAltPressed: boolean,
-    isCtrlPressed: boolean,
-    isMetaPressed: boolean
-  ): string {
-    const handleKeydown = this._generateHandler(
-      isAltPressed,
-      isCtrlPressed,
-      isMetaPressed
-    );
-    const handleKeyup = this._generateHandler(
-      isAltPressed,
-      isCtrlPressed,
-      isMetaPressed
-    );
+  public typescriptCode(): string {
+    const handleKeydown = this._generateHandler();
+    const handleKeyup = this._generateHandler();
 
     const typescriptCode = `
 import { Component } from '@angular/core';
@@ -59,47 +55,50 @@ export class KeyComponent {
     return typescriptCode;
   }
 
-  private _generateHandler(
-    isAltPressed: boolean,
-    isCtrlPressed: boolean,
-    isMetaPressed: boolean
-  ): string {
+  private _generateHandler(): string {
+    const specialHandlerStart = this._generateSpecialHandlerStart();
+    const specialHandlerEnd = this._generateSpecialHandlerEnd();
+    const basicHandlerCode = `
+      if (event.code === '${this.keyCode}') {
+        // Do something
+      }
+      if (event.code === '${this.charCode}') {
+        // Do something else.
+      }
+    `;
     const handlerCode = `
-    ${this._generateSpecialHandler(isAltPressed, isCtrlPressed, isMetaPressed)}
-    if (event.code === '${this.keyCode}') {
-      // Do something
-    }
-    if (event.code === '${this.charCode}') {
-      // Do something else.
-    }
+    ${specialHandlerStart}
+    ${basicHandlerCode} 
+    ${specialHandlerStart !== '' ? specialHandlerEnd : ''}
 `;
     return handlerCode;
   }
 
-  private _generateSpecialHandler(
-    isAltPressed: boolean,
-    isCtrlPressed: boolean,
-    isMetaPressed: boolean
-  ) {
-    const altHandler = 'event.altKey';
-    const ctrlHandler = 'event.ctrlKey';
-    const metaHandler = 'event.metaKey';
+  private _generateSpecialHandlerStart() {
+    const altCondition = 'event.altKey';
+    const ctrlCondition = 'event.ctrlKey';
+    const shiftCondition = 'event.shiftKey';
+    const metaCondition = 'event.metaKey';
 
-    if (isAltPressed || isCtrlPressed || isMetaPressed) {
-      let conditions = []
-      if (isAltPressed)
-        conditions.push(altHandler);
-      if (isCtrlPressed)
-        conditions.push(ctrlHandler);
-      if (isMetaPressed)
-        conditions.push(metaHandler);
+    if (
+      this.isAltPressed ||
+      this.isCtrlPressed ||
+      this.isShiftPressed ||
+      this.isMetaPressed
+    ) {
+      let conditions = [];
+      if (this.isAltPressed) conditions.push(altCondition);
+      if (this.isCtrlPressed) conditions.push(ctrlCondition);
+      if (this.isShiftPressed) conditions.push(shiftCondition);
+      if (this.isMetaPressed) conditions.push(metaCondition);
 
-      return `if(${conditions.join(' && ')}){
-      // Do your stuff here.
-    }`
-    }
-    else {
+      return `if(${conditions.join(' && ')}){`;
+    } else {
       return '';
     }
+  }
+
+  private _generateSpecialHandlerEnd() {
+    return '}'.padStart(4, '');
   }
 }
