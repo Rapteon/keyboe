@@ -6,6 +6,7 @@
   width: fit-content;
   padding: 0.25em;
 }
+
 #content-display {
   display: flex;
   flex-direction: row;
