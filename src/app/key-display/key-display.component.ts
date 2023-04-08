@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { KeyDetectService } from '../key-detect.service';
 
@@ -7,9 +7,9 @@ import { KeyDetectService } from '../key-detect.service';
   templateUrl: './key-display.component.html',
   styleUrls: ['./key-display.component.css'],
 })
-export class KeyDisplayComponent {
-  keydownSubscription: Subscription;
-  keyupSubscription: Subscription;
+export class KeyDisplayComponent implements OnInit {
+  keydownSubscription!: Subscription;
+  keyupSubscription!: Subscription;
   isControlPressed: boolean;
   isMetaPressed: boolean;
   isAltPressed: boolean;
@@ -24,8 +24,10 @@ export class KeyDisplayComponent {
     this.isShiftPressed = false;
     this.keyCode = '—';
     this.charCode = '—';
+  }
 
-    this.keydownSubscription = keyDetectService.keydownSubject.subscribe(
+  ngOnInit(): void {
+    this.keydownSubscription = this.keyDetectService.keydownSubject.subscribe(
       (keyboardEvent) => {
         if (
           keyboardEvent.code === 'ControlLeft' ||
@@ -47,7 +49,7 @@ export class KeyDisplayComponent {
         this.charCode = keyboardEvent.code;
       }
     );
-    this.keyupSubscription = keyDetectService.keyupSubject.subscribe(
+    this.keyupSubscription = this.keyDetectService.keyupSubject.subscribe(
       (keyboardEvent) => {
         if (
           keyboardEvent.code === 'ControlLeft' ||
