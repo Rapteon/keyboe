@@ -9,13 +9,4 @@ import { KeyDetectService } from './key-detect.service';
 export class AppComponent {
   title = 'keyboe';
   constructor(private keyDetectService: KeyDetectService) {}
-
-  keyDown(event: Event) {
-    event.preventDefault();
-    console.log(event);
-  }
-
-  print(): void {
-    console.log('Pressed');
-  }
 }
