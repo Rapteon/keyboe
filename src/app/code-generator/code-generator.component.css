@@ -9,9 +9,25 @@
 #html-code {
   padding: 1em;
   flex-basis: 40%;
+  overflow-y: scroll;
+  height:75vh;
 }
 
 #typescript-code {
   padding: 1em;
   flex-basis: 60%;
+  overflow-y: scroll;
+  height: 75vh;
+}
+
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: var(--white);
+}
+
+/* Add a thumb */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--dark-grey);
 }

@@ -1,9 +1,9 @@
 <div id="container">
-    <div id="html-code" *ngIf="htmlCode">
+    <div id="html-code" *ngIf="htmlCode" class="custom-scrollbar">
         <label for="html">HTML|key.component.html</label>
         <pre id="html"><code [innerHTML]="htmlCode"></code></pre>
     </div>
-    <div id="typescript-code" *ngIf="typescriptCode">
+    <div id="typescript-code" *ngIf="typescriptCode" class="custom-scrollbar">
         <label for="typescript">Typescript|key.component.ts</label>
         <pre id="typescript"><code class="hljs language-typescript" [innerHTML]="typescriptCode"></code></pre>
     </div>
