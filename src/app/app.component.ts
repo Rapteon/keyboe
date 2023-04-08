@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { KeyDetectService } from './key-detect.service';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +7,5 @@ import { KeyDetectService } from './key-detect.service';
 })
 export class AppComponent {
   title = 'keyboe';
-  constructor(private keyDetectService: KeyDetectService) {}
+  constructor() {}
 }

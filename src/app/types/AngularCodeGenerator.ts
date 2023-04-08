@@ -37,14 +37,14 @@ import { Component } from '@angular/core';
 export class KeyComponent {
   constructor() {}
 
-  keyDown(event: KeyboardEvent) {
+  onKeydown(event: KeyboardEvent) {
     event.stopPropagation();
     event.preventDefault();
     console.log('Handle keydown event here.');
     ${handleKeydown}
   }
 
-  keyUp(event: KeyboardEvent) {
+  onKeyup(event: KeyboardEvent) {
     event.stopPropagation();
     event.preventDefault();
     console.log('Handle keyup event here.');
@@ -59,11 +59,11 @@ export class KeyComponent {
     const specialHandlerStart = this._generateSpecialHandlerStart();
     const specialHandlerEnd = this._generateSpecialHandlerEnd();
     const basicHandlerCode = `
-      if (event.code === '${this.keyCode}') {
+      if (event.key === '${this.keyCode}') {
         // Do something
       }
       if (event.code === '${this.charCode}') {
-        // Do something else.
+        // Do something more.
       }
     `;
     const handlerCode = `

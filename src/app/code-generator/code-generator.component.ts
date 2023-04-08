@@ -31,9 +31,6 @@ export class CodeGeneratorComponent {
       const isAltPressed = keyboardEvent.altKey;
       const isCtrlPressed = keyboardEvent.ctrlKey;
       const isMetaPressed = keyboardEvent.metaKey;
-      console.log(`Alt ${isAltPressed}`);
-      console.log(`Ctrl ${isCtrlPressed}`);
-      console.log(`Meta ${isMetaPressed}`);
       const angularCode =
         this.codeGeneratorService.generateAngularCode(keyboardEvent);
       this._setCode(angularCode);

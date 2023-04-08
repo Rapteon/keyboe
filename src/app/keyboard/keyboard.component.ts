@@ -12,14 +12,12 @@ export class KeyboardComponent {
   keyDown(event: KeyboardEvent) {
     event.stopPropagation();
     event.preventDefault();
-    // console.log(`KeyDown: ${event.code}`);
     this.keyDetectService.publishKeydownEvent(event);
   }
 
   keyUp(event: KeyboardEvent) {
     event.stopPropagation();
     event.preventDefault();
-    // console.log(`KeyUp: ${event.code}`);
     this.keyDetectService.publishKeyupEvent(event);
   }
 }
